@@ -102,22 +102,30 @@ $(document).ready(function () {
     function displayForecastData(response) {
         //Clear any previous city data
         $("#fiveDayForecast").empty();
+        $("#fiveDayForecast").css("width", "100%");
+
+        var forecastCardBody  = $("<div>").addClass("card-body");
+        var forecastHeader = $("<h5>").addClass("card-title").text("Five Day Forecast")
+        $("#fiveDayForecast").append(forecastCardBody);
+        $(forecastCardBody).append(forecastHeader);
+        var cardDeck = $("<div>").addClass("card-deck");
+        $("#fiveDayForecast").append(cardDeck);
 
         //Define data needed from API call
         for (i = 0; i < 5; i++) {
             //var newTemp = response.list[i].main.temp;
             //var newHumiditity = response.list[i].main.humidity;
             var newDate = moment().add((1+i), "days").format("LL");
-            var newCard = $("<div>").addClass("card");
+            var newCard = $("<div>").addClass("card mb-3 mt -3 forecast-card");
             var newCardBody = $("<div>").addClass("card-body" + i)
             var newCardTitle = $("<h4>").addClass("card-title");
             var newCardTemp = $("<p>").addClass("card-text");
             var newCardHumidity = $("<p>").addClass("card-text");
 
-            $(newCardTitle).text(newDate);
-            $("#fiveDayForecast").append(newCard);
+            $(newCardBody).text(newDate);
+            $(cardDeck).append(newCard);
             $(newCard).append(newCardBody);
-            $(newCardBody).append(newCardTitle);
+
 
         }
         // var currentWeatherIconCode = response.weather[0].icon;
