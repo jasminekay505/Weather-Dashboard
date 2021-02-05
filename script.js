@@ -24,7 +24,9 @@ $(document).ready(function () {
 
     //Function to display current weather data
     function displayCurrentData(response) {
-        console.log(response)
+        //Clear any previous city data
+        $("#current-weather-card").empty();
+
         //Define data needed from API call
         var currentCity = response.name;
         var currentWeatherIconCode = response.weather[0].icon;
@@ -64,8 +66,6 @@ $(document).ready(function () {
             $("#current-weather-card").append(currentCardUVIndex);
 
         }
-
-
 
         //Set up Card to display data
         $("#current-weather-card").css("width", "100%");
