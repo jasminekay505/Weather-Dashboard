@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         var cityName = $("#input").val().trim();
         getCurrentData(cityName);
-        //getForecastData(cityName);
+        getForecastData(cityName);
 
     })
 
@@ -48,53 +48,97 @@ $(document).ready(function () {
 
         //Format UV Index data based on number
         function formatUVIndex(currentUVIndex) {
-            var currentCardUVIndex = $("<p>");
-            $(currentCardUVIndex).addClass("card-text");
-            if (currentUVIndex > 0 && currentUVIndex < 3) { 
+            var currentCardUVIndex = $("<span>").text(currentUVIndex);
+            if (currentUVIndex > 0 && currentUVIndex < 3) {
                 $(currentCardUVIndex).addClass("low");
-            } else if (currentUVIndex >= 3 && currentUVIndex <= 5) { 
+            } else if (currentUVIndex >= 3 && currentUVIndex <= 5) {
                 $(currentCardUVIndex).addClass("moderate");
-            } else if (currentUVIndex >= 6 && currentUVIndex <= 7) { 
+            } else if (currentUVIndex >= 6 && currentUVIndex <= 7) {
                 $(currentCardUVIndex).addClass("high");
-            } else if (currentUVIndex >= 8 && currentUVIndex <= 10) { 
+            } else if (currentUVIndex >= 8 && currentUVIndex <= 10) {
                 $(currentCardUVIndex).addClass("veryHigh");
-            } else if (currentUVIndex >= 11) { 
+            } else if (currentUVIndex >= 11) {
                 $(currentCardUVIndex).addClass("Extreme");
             }
 
-            currentCardUVIndex.text("UV Index: " + currentUVIndex);
-            $("#current-weather-card").append(currentCardUVIndex);
+            var currentCardUVIndexP = $("<p>").addClass("card-text").text("UV Index: ").attr("id", "UV");
+            $(currentCardUVIndex).appendTo(currentCardUVIndexP);
+            console.log(currentCardUVIndexP)
+            $("#current-weather-card").append(currentCardUVIndexP);
 
         }
 
         //Set up Card to display data
         $("#current-weather-card").css("width", "100%");
-        var currentCardBody = $("<div>");
-        $(currentCardBody).addClass("card-body");
-        var currentCardTitle = $("<h5>");
-        $(currentCardTitle).addClass("card-title");
+        var currentCardBody = $("<div>").addClass("card-body");
+        var currentCardTitle = $("<h5>").addClass("card-title");
         var currentWeatherIcon = $("<img src = http://openweathermap.org/img/wn/" + currentWeatherIconCode + "@2x.png />");
-        var currentCardTemp = $("<p>");
-        $(currentCardTemp).addClass("card-text");
-        var currentCardHumidity = $("<p>");
-        $(currentCardHumidity).addClass("card-text");
-        var currentCardWindSpeed = $("<p>");
-        $(currentCardWindSpeed).addClass("card-text");
-        var currentCardUVIndex = $("<p>");
-        $(currentCardUVIndex).addClass("card-text");
+        var currentCardTemp = $("<p>").addClass("card-text");
+        var currentCardHumidity = $("<p>").addClass("card-text");
+        var currentCardWindSpeed = $("<p>").addClass("card-text");
 
         //Display Current Weather Card
         $(currentCardTitle).text(currentCity + " (" + currentDate + ")");
         $(currentCardTemp).text("Temperature: " + currentTemp);
         $(currentCardHumidity).text("Humidity: " + currentHumidity);
         $(currentCardWindSpeed).text("Windspeed: " + currentWindSpeed);
-        //$(currentCardUVIndex).text("UV Index: " + currentUVIndex);
         $("#current-weather-card").append(currentCardBody);
         $(currentCardBody).append(currentCardTitle);
         $(currentCardTitle).append(currentWeatherIcon);
         $(currentCardBody).append(currentCardTemp);
         $(currentCardBody).append(currentCardHumidity);
         $(currentCardBody).append(currentCardWindSpeed);
+    }
+    //Function to get forecast weather data
+    function getForecastData(cityName) {
+        var requestURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=imperial&APPID=0223917225e2fc61b70b2c4dc9942a0d"
+        $.ajax({
+            url: requestURL,
+            method: "GET",
+        }).then(displayForecastData);
+    }
+
+    //Function to display forecast weather data
+    function displayForecastData(response) {
+        //Clear any previous city data
+        $("#fiveDayForecast").empty();
+
+        //Define data needed from API call
+        for (i = 0; i < 5; i++) {
+            //var newTemp = response.list[i].main.temp;
+            //var newHumiditity = response.list[i].main.humidity;
+            var newDate = moment().add((1+i), "days").format("LL");
+            var newCard = $("<div>").addClass("card");
+            var newCardBody = $("<div>").addClass("card-body" + i)
+            var newCardTitle = $("<h4>").addClass("card-title");
+            var newCardTemp = $("<p>").addClass("card-text");
+            var newCardHumidity = $("<p>").addClass("card-text");
+
+            $(newCardTitle).text(newDate);
+            $("#fiveDayForecast").append(newCard);
+            $(newCard).append(newCardBody);
+            $(newCardBody).append(newCardTitle);
+
+        }
+        // var currentWeatherIconCode = response.weather[0].icon;
+
+
+        // //Set up Card to display data
+        // $("#current-weather-card").css("width", "100%");
+        // var currentWeatherIcon = $("<img src = http://openweathermap.org/img/wn/" + currentWeatherIconCode + "@2x.png />");
+
+        // //Display Current Weather Card
+        // $(currentCardTitle).text(currentCity + " (" + currentDate + ")");
+        // $(currentCardTemp).text("Temperature: " + currentTemp);
+        // $(currentCardHumidity).text("Humidity: " + currentHumidity);
+        // $(currentCardWindSpeed).text("Windspeed: " + currentWindSpeed);
+        // //$(currentCardUVIndex).text("UV Index: " + currentUVIndex);
+        // $("#current-weather-card").append(currentCardBody);
+        // $(currentCardBody).append(currentCardTitle);
+        // $(currentCardTitle).append(currentWeatherIcon);
+        // $(currentCardBody).append(currentCardTemp);
+        // $(currentCardBody).append(currentCardHumidity);
+        // $(currentCardBody).append(currentCardWindSpeed);
     }
 
 
