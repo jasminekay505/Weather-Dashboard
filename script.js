@@ -1,5 +1,6 @@
 //Use moment to get current date
 var currentDate = moment().format('LL');
+//Define global variables
 var cityListStorage = [];
 
 $(document).ready(function () {
@@ -154,11 +155,11 @@ $(document).ready(function () {
 
         for(i=0; i < cityListStorage.length; i ++) { 
             var cityStorage = $("<a>").addClass("list-group-item list-group-item-action list-group-item-primary city").attr("data-name", cityListStorage[i]).text(cityListStorage[i]);
-            $("#cityList").prepend(cityStorage);
+            $("#cityList").append(cityStorage);
             }
     }
 
-    //Function to display weather data for previously searched cities
+    //Event Listener to display weather data for previously searched cities
     $(document).on("click", ".city", function (event) { 
         var cityName = $(this).attr("data-name");
         getCurrentData(cityName);
