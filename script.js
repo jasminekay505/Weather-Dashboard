@@ -10,13 +10,13 @@ $(document).ready(function () {
         event.preventDefault();
 
         var cityName = $("#input").val().trim();
-        if (cityName === "") { 
+        if (cityName === "") {
             alert("Please enter a city!")
-        } else { 
-        cityListStorage.push(cityName)
-        getCurrentData(cityName);
-        getForecastData(cityName);
-        listCities();
+        } else {
+            cityListStorage.push(cityName)
+            getCurrentData(cityName);
+            getForecastData(cityName);
+            listCities();
         }
     })
 
@@ -150,17 +150,17 @@ $(document).ready(function () {
     }
 
     //Function to display previously searched cities
-    function listCities () { 
+    function listCities() {
         $("#cityList").empty();
 
-        for(i=0; i < cityListStorage.length; i ++) { 
+        for (i = 0; i < cityListStorage.length; i++) {
             var cityStorage = $("<a>").addClass("list-group-item list-group-item-action list-group-item-primary city").attr("data-name", cityListStorage[i]).text(cityListStorage[i]);
             $("#cityList").append(cityStorage);
-            }
+        }
     }
 
     //Event Listener to display weather data for previously searched cities
-    $(document).on("click", ".city", function (event) { 
+    $(document).on("click", ".city", function (event) {
         var cityName = $(this).attr("data-name");
         getCurrentData(cityName);
         getForecastData(cityName);
