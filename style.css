@@ -1,8 +1,44 @@
-.navbar-dark { 
-    text-align: center;
-    font-size: larger;
+h5 {
+    padding: 10px;
+    font-size: 32px;
 }
-div {
-    outline: 2px blue;
-  }
+p { 
+    padding-left: 20px;
+}
+
+.card-body { 
+    padding-bottom: 10px;
+}
+
+.low { 
+    padding-left: 40px;
+    padding-bottom: 10px;
+    background-color: green;
+    color: white;
+}
+
+.moderate { 
+    padding-left: 40px;
+    padding-bottom: 10px;
+    background-color: yellow;
+}
+
+.high { 
+    padding-left: 40px;
+    padding-bottom: 10px;
+    background-color: orange;
+}
+
+.veryHigh { 
+    padding-left: 40px;
+    padding-bottom: 10px;
+    background-color: orangered;
+}
+
+.extreme { 
+    padding-left: 40px;
+    padding-bottom: 10px;
+    background-color: red;
+    color:white;
+}
   
