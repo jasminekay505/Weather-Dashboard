@@ -158,4 +158,12 @@ $(document).ready(function () {
             }
     }
 
+    //Function to display weather data for previously searched cities
+    $(document).on("click", ".city", function (event) { 
+        var cityName = $(this).attr("data-name");
+        getCurrentData(cityName);
+        getForecastData(cityName);
+        console.log(cityName)
+    })
+
 });
