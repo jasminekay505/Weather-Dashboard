@@ -105,8 +105,8 @@ $(document).ready(function () {
         $("#fiveDayForecast").css("width", "100%");
 
         //Add Header and card deck
-        var forecastCardBody  = $("<div>").addClass("card-body");
-        var forecastHeader = $("<h5>").addClass("card-title").text("Five Day Forecast")
+        var forecastCardBody = $("<div>").addClass("card-body");
+        var forecastHeader = $("<h5>").addClass("card-title").text("Five Day Forecast:")
         $("#fiveDayForecast").append(forecastCardBody);
         $(forecastCardBody).append(forecastHeader);
         var cardDeck = $("<div>").addClass("card-deck");
@@ -115,7 +115,7 @@ $(document).ready(function () {
 
         //Set up card deck and fill in data
         for (i = 0; i < 5; i++) {
-            var newDate = moment().add((1+i), "days").format("LL");
+            var newDate = moment().add((1 + i), "days").format("LL");
             var newCard = $("<div>").addClass("card mb-3 mt -3 forecast-card");
             var newCardBody = $("<div>").addClass("card-body" + i)
             var newCardTemp = $("<p>").addClass("card-text");
@@ -132,7 +132,7 @@ $(document).ready(function () {
             var forecastTemp = response.list[i].main.temp;
             var forecastHumidity = response.list[i].main.humidity;
 
-            $(newCardTemp).text("Temperature: "+ forecastTemp + "°F");
+            $(newCardTemp).text("Temp: " + forecastTemp + "°F");
             $(newCardHumidity).text("Humidity: " + forecastHumidity + "%");
 
             $(newCardBody).append(forecastIcon);
