@@ -1,5 +1,6 @@
 //Use moment to get current date
 var currentDate = moment().format('LL');
+var cityListStorage = [];
 
 $(document).ready(function () {
 
@@ -8,9 +9,14 @@ $(document).ready(function () {
         event.preventDefault();
 
         var cityName = $("#input").val().trim();
+        if (cityName === "") { 
+            alert("Please enter a city!")
+        } else { 
+        cityListStorage.push(cityName)
         getCurrentData(cityName);
         getForecastData(cityName);
-
+        listCities();
+        }
     })
 
     //Function to get current weather data
@@ -142,5 +148,14 @@ $(document).ready(function () {
         }
     }
 
+    //Function to display previously searched cities
+    function listCities () { 
+        $("#cityList").empty();
+
+        for(i=0; i < cityListStorage.length; i ++) { 
+            var cityStorage = $("<a>").addClass("list-group-item list-group-item-action list-group-item-primary city").attr("data-name", cityListStorage[i]).text(cityListStorage[i]);
+            $("#cityList").prepend(cityStorage);
+            }
+    }
 
 });
