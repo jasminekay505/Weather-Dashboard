@@ -79,9 +79,9 @@ $(document).ready(function () {
 
         //Display Current Weather Card
         $(currentCardTitle).text(currentCity + " (" + currentDate + ")");
-        $(currentCardTemp).text("Temperature: " + currentTemp);
-        $(currentCardHumidity).text("Humidity: " + currentHumidity);
-        $(currentCardWindSpeed).text("Windspeed: " + currentWindSpeed);
+        $(currentCardTemp).text("Temperature: " + currentTemp + "°F");
+        $(currentCardHumidity).text("Humidity: " + currentHumidity + "%");
+        $(currentCardWindSpeed).text("Windspeed: " + currentWindSpeed + " MPH");
         $("#current-weather-card").append(currentCardBody);
         $(currentCardBody).append(currentCardTitle);
         $(currentCardTitle).append(currentWeatherIcon);
@@ -100,10 +100,11 @@ $(document).ready(function () {
 
     //Function to display forecast weather data
     function displayForecastData(response) {
-        //Clear any previous city data
+        //Clear any previous city data and set up div
         $("#fiveDayForecast").empty();
         $("#fiveDayForecast").css("width", "100%");
 
+        //Add Header and card deck
         var forecastCardBody  = $("<div>").addClass("card-body");
         var forecastHeader = $("<h5>").addClass("card-title").text("Five Day Forecast")
         $("#fiveDayForecast").append(forecastCardBody);
@@ -111,42 +112,34 @@ $(document).ready(function () {
         var cardDeck = $("<div>").addClass("card-deck");
         $("#fiveDayForecast").append(cardDeck);
 
-        //Define data needed from API call
+
+        //Set up card deck and fill in data
         for (i = 0; i < 5; i++) {
-            //var newTemp = response.list[i].main.temp;
-            //var newHumiditity = response.list[i].main.humidity;
             var newDate = moment().add((1+i), "days").format("LL");
             var newCard = $("<div>").addClass("card mb-3 mt -3 forecast-card");
             var newCardBody = $("<div>").addClass("card-body" + i)
-            var newCardTitle = $("<h4>").addClass("card-title");
             var newCardTemp = $("<p>").addClass("card-text");
             var newCardHumidity = $("<p>").addClass("card-text");
 
+            //Add date to card
             $(newCardBody).text(newDate);
             $(cardDeck).append(newCard);
             $(newCard).append(newCardBody);
 
+            //Add Temp, Icon and humidity to card
+            var forecastIconCode = response.list[i].weather[0].icon;
+            var forecastIcon = $("<img src = http://openweathermap.org/img/wn/" + forecastIconCode + "@2x.png />");
+            var forecastTemp = response.list[i].main.temp;
+            var forecastHumidity = response.list[i].main.humidity;
+
+            $(newCardTemp).text("Temperature: "+ forecastTemp + "°F");
+            $(newCardHumidity).text("Humidity: " + forecastHumidity + "%");
+
+            $(newCardBody).append(forecastIcon);
+            $(newCardBody).append(newCardTemp);
+            $(newCardBody).append(newCardHumidity);
 
         }
-        // var currentWeatherIconCode = response.weather[0].icon;
-
-
-        // //Set up Card to display data
-        // $("#current-weather-card").css("width", "100%");
-        // var currentWeatherIcon = $("<img src = http://openweathermap.org/img/wn/" + currentWeatherIconCode + "@2x.png />");
-
-        // //Display Current Weather Card
-        // $(currentCardTitle).text(currentCity + " (" + currentDate + ")");
-        // $(currentCardTemp).text("Temperature: " + currentTemp);
-        // $(currentCardHumidity).text("Humidity: " + currentHumidity);
-        // $(currentCardWindSpeed).text("Windspeed: " + currentWindSpeed);
-        // //$(currentCardUVIndex).text("UV Index: " + currentUVIndex);
-        // $("#current-weather-card").append(currentCardBody);
-        // $(currentCardBody).append(currentCardTitle);
-        // $(currentCardTitle).append(currentWeatherIcon);
-        // $(currentCardBody).append(currentCardTemp);
-        // $(currentCardBody).append(currentCardHumidity);
-        // $(currentCardBody).append(currentCardWindSpeed);
     }
 
 
