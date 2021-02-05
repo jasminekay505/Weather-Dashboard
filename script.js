@@ -11,8 +11,8 @@ $("#search").on("click", function (event) {
 
     cityName = $("#input").val().trim();
     console.log = cityName;
-    cityName.push(cityName);
-    console.log(cityList);
+    //cityList.push(cityName);
+    //console.log(cityList);
 })
 
 });
