@@ -22,6 +22,4 @@ https://jasminekay505.github.io/Weather-Dashboard/
 MIT
 
 # Author Contact Info
-*Jasmine Sanchez*
-
 *jasminekay505@gmail.com*
