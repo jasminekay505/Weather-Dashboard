@@ -14,7 +14,7 @@ https://jasminekay505.github.io/Weather-Dashboard/
   * jQuery
   * OpenWeather API (https://openweathermap.org/api)
 
-# Screenshots of Application:
+# Screenshots of Application
 ![image](https://user-images.githubusercontent.com/74380703/108393879-f3a4e500-71c8-11eb-9969-b21c483b25d2.png)
 ![image](https://user-images.githubusercontent.com/74380703/107076201-f56db200-679f-11eb-9a59-1d44be194936.png)
 
